@@ -1,0 +1,6 @@
+PATH_TRAINING = train.csv
+PATH_TEST = test.csv
+PATH_VALID = valid.csv
+PATH_RULES = rules.txt
+WORKER_THREADS = -1
+PATH_OUTPUT = predictions.txt
