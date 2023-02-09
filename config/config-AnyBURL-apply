@@ -1,0 +1,10 @@
+PATH_TRAINING = data/train.csv
+PATH_VALID    = data/valid.csv
+PATH_TEST     = data/valid.csv
+
+PATH_RULES    = data/rules-1000
+PATH_OUTPUT   = data/preds-1000
+
+WORKER_THREADS = 16
+
+TOP_K_OUTPUT = 10

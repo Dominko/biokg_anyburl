@@ -33,6 +33,8 @@ def evaluate_policy(path_predictions, n, policy):
     hits1 = 0
     hits3 = 0
     hits10 = 0
+    hits50 = 0
+    hits100 = 0
     mrr = 0.0
     mr = 0
     
@@ -48,11 +50,15 @@ def evaluate_policy(path_predictions, n, policy):
                 hits3 = hits3 + 1
             if rank <= 10.:
                 hits10 = hits10 + 1
+            if rank <= 50.:
+                hits50 = hits50 + 1
+            if rank <= 100.:
+                hits100 = hits100 + 1
             mrr = mrr + (1 / rank)
         except ValueError:
             pass
     #return hits1/n, hits3/n, hits10/n, mrr/n
-    return "MRR: %.3f" % (mrr/n), "Hits@1: %.3f" % (hits1/n), "Hits@3: %.3f" % (hits3/n) , "Hits@10: %.3f" % (hits10/n) 
+    return "MRR: %.3f" % (mrr/n), "Hits@1: %.3f" % (hits1/n), "Hits@3: %.3f" % (hits3/n) , "Hits@10: %.3f" % (hits10/n), "Hits@50: %.3f" % (hits50/n) , "Hits@100: %.3f" % (hits100/n) 
 
 def evaluate(path_predictions, path_test):
     n = get_n_test(path_test) * 2

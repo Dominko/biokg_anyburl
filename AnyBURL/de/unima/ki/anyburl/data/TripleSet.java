@@ -119,12 +119,12 @@ public class TripleSet {
 		for (Triple t : triples) {
 			tCounter++;
 			if (tCounter % divisor == 0) {
-				System.out.println("* indexed " + tCounter + " triples");
+				// System.out.println("* indexed " + tCounter + " triples");
 				divisor *= 2;
 			}
 			addTripleToIndex(t);
 		}
-		System.out.println("* set up index for " + this.relationToList.keySet().size() + " relations, " + this.headToList.keySet().size() + " head entities, and " + this.tailToList.keySet().size() + " tail entities" );
+		// System.out.println("* set up index for " + this.relationToList.keySet().size() + " relations, " + this.headToList.keySet().size() + " head entities, and " + this.tailToList.keySet().size() + " tail entities" );
 	}
 	
 	public void setupListStructure() {
@@ -235,7 +235,7 @@ public class TripleSet {
 			
 				//  if (lineCounter % 7 == 0) continue;
 				if (lineCounter % 1000000 == 0) {
-					System.out.println(">>> parsed " + lineCounter + " lines");
+					// System.out.println(">>> parsed " + lineCounter + " lines");
 				}
 				if (line.length() <= 2) continue;
 				String[] token = line.split("\t");
@@ -288,7 +288,7 @@ public class TripleSet {
 			System.err.format("Error occured for line: " + line + " LINE END");
 		}
 		// Collections.shuffle(this.triples);
-		System.out.println("* read " + this.triples.size() + " triples");
+		// System.out.println("* read " + this.triples.size() + " triples");
 	}
 	
 	public ArrayList<Triple> getTriples() {

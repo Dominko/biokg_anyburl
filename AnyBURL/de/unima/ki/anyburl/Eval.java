@@ -1,8 +1,13 @@
 package de.unima.ki.anyburl;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
 import java.util.Properties;
@@ -51,7 +56,10 @@ public class Eval {
 	 */
 	public static String PATH_PREDICTIONS = "";
 	
-	
+	/**
+	 * Path to the output file where evaluation will be stored
+	 */
+	public static String PATH_OUTPUT = "";
 	
 	public static void main(String[] args) throws IOException {
 		
@@ -59,7 +67,7 @@ public class Eval {
 		
 		if (args.length == 1) {
 			CONFIG_FILE = args[0];
-			System.out.println("reading params from file " + CONFIG_FILE);
+			// System.out.println("reading params from file " + CONFIG_FILE);
 		}
 		
 		Rule.applicationMode();
@@ -76,6 +84,7 @@ public class Eval {
 			PATH_VALID = IOHelper.getProperty(prop, "PATH_VALID",PATH_VALID);
 			PATH_PREDICTIONS = IOHelper.getProperty(prop, "PATH_PREDICTIONS", PATH_PREDICTIONS);
 			TOP_K = IOHelper.getProperty(prop, "TOP_K", TOP_K);
+			PATH_OUTPUT = IOHelper.getProperty(prop, "PATH_OUTPUT", PATH_OUTPUT);
 		}
 		catch (IOException ex) {
 			System.err.println("Could not read relevant parameters from the config file " + CONFIG_FILE);
@@ -114,6 +123,22 @@ public class Eval {
 			ResultSet rs = new ResultSet(PATH_PREDICTIONS, true, TOP_K);
 			computeScores(rs, testSet, hitsAtK);
 			System.out.println(hitsAtK.getHitsAtK(0) + "   " + hitsAtK.getHitsAtK(2) + "   " + hitsAtK.getHitsAtK(9) + "   " + hitsAtK.getApproxMRR());
+			
+			// Make file if it does not exist
+			File output_file = new File(PATH_OUTPUT);
+			if (output_file.createNewFile()) {
+				System.out.println("File created: " + output_file.getName());
+
+				Files.write(Paths.get(PATH_OUTPUT), "time,hits@1,hits@3,hits@10,MRR\r\n".getBytes(), StandardOpenOption.APPEND);
+			} else {
+				System.out.println("File already exists.");
+			}
+
+			String res = PATH_PREDICTIONS + "," + hitsAtK.getHitsAtK(0) + "," + hitsAtK.getHitsAtK(2) + "," + hitsAtK.getHitsAtK(9) + "," + hitsAtK.getApproxMRR() + "\r\n";
+			Files.write(Paths.get(PATH_OUTPUT), res.getBytes(), StandardOpenOption.APPEND);
+			// FileWriter myWriter = new FileWriter(PATH_OUTPUT);
+			// myWriter.write(PATH_PREDICTIONS + "," + hitsAtK.getHitsAtK(0) + "," + hitsAtK.getHitsAtK(2) + "," + hitsAtK.getHitsAtK(9) + "," + hitsAtK.getApproxMRR());
+			// myWriter.close();
 		}
 		else {
 			for (String value : values) {

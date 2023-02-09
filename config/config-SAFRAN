@@ -1,0 +1,6 @@
+PATH_TRAINING = data/train.txt
+PATH_TEST = data/test.txt
+PATH_VALID = data/valid.txt
+PATH_RULES = data/fb15k237-1000
+WORKER_THREADS = -1
+PATH_OUTPUT = data/benchmark
