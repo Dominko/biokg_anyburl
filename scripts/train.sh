@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Recompile
+cd AnyBURL/
+javac de/unima/ki/anyburl/*.java -d build
+jar cfv AnyBURL-23-1.jar -C build .
+cd ../
+
 # Train model
 java -Xmx12G -cp AnyBURL/AnyBURL-23-1.jar de.unima.ki.anyburl.Learn config/config-AnyBURL
 
