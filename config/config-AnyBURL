@@ -2,11 +2,9 @@ PATH_TRAINING = /rds/user/co-grab1/hpc-work/anyburl/train.csv
 
 PATH_OUTPUT   = /rds/user/co-grab1/hpc-work/anyburl/rules
 
-SNAPSHOTS_AT = 10,100,200,300,400,500,600,700,800,900,1000
+SNAPSHOTS_AT = 10,20,30,40,50,60,70,80,90
 
 THRESHOLD_CORRECT_PREDICTIONS = 5
 BATCH_TIME = 2000
 
 WORKER_THREADS = 76
-
-ZERO_RULES_ACTIVE = true

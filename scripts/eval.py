@@ -1,6 +1,5 @@
 import os
 import math
-from scipy.stats import rankdata
 from tqdm import tqdm
 import sys
 

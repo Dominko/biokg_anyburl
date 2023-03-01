@@ -11,11 +11,11 @@ cd ../
 java -Xmx12G -cp AnyBURL/AnyBURL-23-1.jar de.unima.ki.anyburl.Learn config/config-AnyBURL
 
 # Make predictions
-for i in {10..90..10}
+for i in {100..400..100}
 do
-    sed -i "5s#.*#PATH_RULES = /rds/user/co-grab1/hpc-work/anyburl/rules-$i#" config/config-AnyBURL-apply
-    sed -i "6s#.*#PATH_OUTPUT = /rds/user/co-grab1/hpc-work/anyburl/predictions-max-$i#" config/config-AnyBURL-apply
-    #sed -i "6s#.*#PATH_PREDICTIONS = /rds/user/co-grab1/hpc-work/anyburl/predictions-max-$i#" config/config-AnyBURL-eval
+    sed -i "5s#.*#PATH_RULES = /rds/user/co-grab1/hpc-work/anyburl/rules-length-3-$i#" config/config-AnyBURL-apply
+    sed -i "6s#.*#PATH_OUTPUT = /rds/user/co-grab1/hpc-work/anyburl/predictions-length-3-$i#" config/config-AnyBURL-apply
+    #sed -i "6s#.*#PATH_PREDICTIONS = /rds/user/co-grab1/hpc-work/anyburl/predictions-length-3-$i#" config/config-AnyBURL-eval
     
     java -Xmx12G -cp AnyBURL/AnyBURL-23-1.jar de.unima.ki.anyburl.Apply config/config-AnyBURL-apply
     #java -Xmx12G -cp AnyBURL/AnyBURL-23-1.jar de.unima.ki.anyburl.Eval config/config-AnyBURL-eval
