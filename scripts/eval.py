@@ -36,7 +36,7 @@ def parse_preds(path_predictions):
                 heads[i-test] = StringIO(heads[i-test])
                 heads[i-test] = pd.read_csv(heads[i-test], sep="\t", header=None).to_numpy()
                 heads[i-test] = pd.DataFrame(heads[i-test].reshape((len(heads[i-test][0])//2,2)), columns=["prediction", "confidence"])
-                heads[i-test]["prediction"] = heads[i-test]["prediction"].astype(int).astype(str) + " " + triple.split(" ")[1] + " " + triple.split(" ")[2]
+                heads[i-test]["prediction"] = heads[i-test]["prediction"].astype(str) + " " + triple.split(" ")[1] + " " + triple.split(" ")[2]
                 heads[i-test]["triple"] = triple
                 # heads.set_index("triple", inplace = True)
             else:
@@ -50,7 +50,7 @@ def parse_preds(path_predictions):
                 tails[i-test] = StringIO(tails[i-test])
                 tails[i-test] = pd.read_csv(tails[i-test], sep="\t", header=None).to_numpy()
                 tails[i-test] = pd.DataFrame(tails[i-test].reshape((len(tails[i-test][0])//2,2)), columns=["prediction", "confidence"])
-                tails[i-test]["prediction"] = triple.split(" ")[0] + " " + triple.split(" ")[1] + " " + tails[i-test]["prediction"].astype(int).astype(str)
+                tails[i-test]["prediction"] = triple.split(" ")[0] + " " + triple.split(" ")[1] + " " + tails[i-test]["prediction"].astype(str)
                 tails[i-test]["triple"] = triple
                 # tails.set_index("triple", inplace = True)
             else:
@@ -69,12 +69,12 @@ def parse_preds(path_predictions):
         all_heads = pd.concat(heads)
         all_tails = pd.concat(tails)
 
-        print(all_heads)
-        print(all_tails)
+        # print(all_heads)
+        # print(all_tails)
         return all_heads, all_tails
 
 
-def evaluate(path_predictions, path_train, path_valid, path_test, head_path, tail_path, force_regen:bool):
+def evaluate(path_predictions, path_train, path_valid, path_test, head_path, tail_path, output_path, force_regen:bool):
     # Read prediction file and extract predictions as dict
     if not os.path.isfile(head_path) or not os.path.isfile(tail_path):
         print("we are missing parsed preds, generate...")
@@ -110,10 +110,13 @@ def evaluate(path_predictions, path_train, path_valid, path_test, head_path, tai
 
     print("Filtering")
     heads = heads.merge(all_triples, left_on="prediction", right_on="triple", indicator=True, how="outer").query('_merge=="left_only"|triple_x==prediction').drop(['_merge', 'triple_y'], axis=1)
+    tails = tails.merge(all_triples, left_on="prediction", right_on="triple", indicator=True, how="outer").query('_merge=="left_only"|triple_x==prediction').drop(['_merge', 'triple_y'], axis=1)
+
 
     # heads.sort_values("triple_x", inplace = True)
     print("Grouping")
     heads = heads.groupby(heads.triple_x)
+    tails = tails.groupby(tails.triple_x)
 
     true_pos = 0
     missing = 0
@@ -131,13 +134,29 @@ def evaluate(path_predictions, path_train, path_valid, path_test, head_path, tai
         except:
             missing += 1
 
+        try:
+            top10 = tails.get_group(triple)
+            top10 = top10.sort_values(by=["confidence"], ascending=False)
+            top10 = top10.reset_index()
+            # # Rank
+            if triple in top10["prediction"][0:10].values:
+                true_pos += 1
+        except:
+            missing += 1
+
     print(path_predictions)
     print("true positives = " + str(true_pos))
     print("missing = " + str(missing))
     print("hits at 10 = " + str(true_pos/len(valid)))
 
-
+    results = []
+    try:
+        results = pd.read_csv(output_path)
+    except:
+        results = pd.DataFrame(columns=["data_set", "true positives", "missing", "hits@10"])
+    results.loc[results.size] = [path_predictions, true_pos, missing, true_pos/len(valid)]
+    results.to_csv(output_path, index=False)
 
 if __name__ == "__main__":
-    res = evaluate(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7] == 'True')
+    res = evaluate(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7], sys.argv[8] == 'True')
     print(res)

@@ -149,7 +149,6 @@ public class RuleEngine {
 	
 	public static synchronized Triple getNextPredictionTask()  {
 		predictionsMade++;
-		// System.out.println(predictionsMade + "");
 		Triple triple = predictionTasks.poll();
 		if (predictionsMade % 100 == 0) {
 			if (triple != null) System.out.println("* (#" + predictionsMade + ") trying to guess the tail and head of " + triple.toString());
@@ -195,7 +194,7 @@ public class RuleEngine {
 	
 	
 	public static void predictMax(TripleSet testSet, TripleSet trainingSet, TripleSet validationSet, int k, HashMap<String, ArrayList<Rule>> relation2Rules4Prediction, Triple triple) {
-		// System.out.println("=== " + triple + " ===");
+		//System.out.println("=== " + triple + " ===");
 		ScoreTree kTree = new ScoreTree();
 		LinkedHashMap<String, Double> kTailCandidates = predictMax(testSet, trainingSet, validationSet, k, relation2Rules4Prediction, triple, false, kTree);
 		ScoreTree kTailTree = kTree;
@@ -205,7 +204,6 @@ public class RuleEngine {
 		ScoreTree kHeadTree = kTree;
 		
 		if (Settings.PATH_EXPLANATION != null) writeTopKExplanation(triple, testSet, kHeadCandidates, kHeadTree, kTailCandidates, kTailTree, k);
-		
 		writeTopKCandidates(triple, testSet, kHeadCandidates, kTailCandidates, predictionsWriter, k);
 	}
 	
@@ -572,6 +570,7 @@ public class RuleEngine {
 		}
 		writer.println();
 		writer.flush();
+
 	}
 	
 	private static synchronized void writeTopKExplanation(Triple t, TripleSet testSet, LinkedHashMap<String, Double> kHeadCandidates, ScoreTree headTree, LinkedHashMap<String, Double> kTailCandidates, ScoreTree tailTree, int k) {

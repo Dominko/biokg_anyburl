@@ -39,8 +39,8 @@ public class Predictor extends Thread {
 			// System.out.println(this.getName() + " making prediction for " + triple);
 			if (Settings.AGGREGATION_ID == 1) {
 				RuleEngine.predictMax(testSet, trainingSet, validationSet, k, relation2Rules4Prediction, triple);
-				triple = RuleEngine.getNextPredictionTask();
 			}
+			triple = RuleEngine.getNextPredictionTask();
 		}
 		
 	}

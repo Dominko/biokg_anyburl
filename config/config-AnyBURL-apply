@@ -1,9 +1,16 @@
-PATH_TRAINING = /rds/user/co-grab1/hpc-work/anyburl/train.csv
-PATH_VALID    = /rds/user/co-grab1/hpc-work/anyburl/valid.csv
-PATH_TEST     = /rds/user/co-grab1/hpc-work/anyburl/valid.csv
+#PATH_TRAINING = /rds/user/co-grab1/hpc-work/anyburl/train_prefixed.csv
+#PATH_VALID    = /rds/user/co-grab1/hpc-work/anyburl/valid-short_prefixed.csv
+#PATH_TEST     = /rds/user/co-grab1/hpc-work/anyburl/valid-short_prefixed.csv
 
-PATH_RULES = /rds/user/co-grab1/hpc-work/anyburl/rules-90
-PATH_OUTPUT = /rds/user/co-grab1/hpc-work/anyburl/predictions-max-90
+PATH_RULES = /rds/user/co-grab1/hpc-work/anyburl/rules-10
+PATH_OUTPUT = /rds/user/co-grab1/hpc-work/anyburl/predictions-max-10
+
+PATH_TRAINING = data/train_prefixed.csv
+PATH_VALID    = data/valid-short_prefixed.csv
+PATH_TEST     = data/valid-short_prefixed.csv
+
+PATH_RULES = data/rules-10
+PATH_OUTPUT = data/predictions-max-10
 
 WORKER_THREADS = 76
 
