@@ -1,0 +1,14 @@
+PATH_TRAINING = /rds/user/co-grab1/hpc-work/anyburl/train_prefixed.csv
+
+PATH_OUTPUT   = /rds/user/co-grab1/hpc-work/anyburl/rules-length-2
+
+SNAPSHOTS_AT = 50, 100, 150, 200, 250, 300
+
+THRESHOLD_CORRECT_PREDICTIONS = 5
+BATCH_TIME = 2000
+
+WORKER_THREADS = 76
+
+MAX_LENGTH_CYCLIC = 4
+MAX_LENGTH_ACYCLIC = 2
+MAX_LENGTH_GROUNDED_CYCLIC = 2
