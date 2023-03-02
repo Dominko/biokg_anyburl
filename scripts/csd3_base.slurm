@@ -49,5 +49,6 @@ do
             /rds/user/co-grab1/hpc-work/anyburl/test_prefixed.csv \
             /rds/user/co-grab1/hpc-work/anyburl/heads_base.pkl \
             /rds/user/co-grab1/hpc-work/anyburl/tails_base.pkl \
+            /rds/user/co-grab1/hpc-work/anyburl/base.out \
             True
 done

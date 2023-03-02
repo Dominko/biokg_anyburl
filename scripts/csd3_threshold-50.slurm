@@ -49,5 +49,6 @@ do
             /rds/user/co-grab1/hpc-work/anyburl/test_prefixed.csv \
             /rds/user/co-grab1/hpc-work/anyburl/heads_threshold-50.pkl \
             /rds/user/co-grab1/hpc-work/anyburl/tails_threshold-50.pkl \
+            /rds/user/co-grab1/hpc-work/anyburl/threshold-50.out \
             True
 done
