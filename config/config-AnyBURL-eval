@@ -1,9 +1,0 @@
-PATH_TRAINING = /rds/user/co-grab1/hpc-work/anyburl/train.csv
-PATH_VALID    = /rds/user/co-grab1/hpc-work/anyburl/valid.csv
-PATH_TEST     = /rds/user/co-grab1/hpc-work/anyburl/valid.csv
-
-
-PATH_PREDICTIONS = /rds/user/co-grab1/hpc-work/anyburl/predictions-max-1000
-PATH_OUTPUT = /home/co-grab1/projects/anyburl/data/eval.csv
-
-TOP_K = 10
