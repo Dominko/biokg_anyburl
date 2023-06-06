@@ -1,10 +1,14 @@
-PATH_TRAINING = /rds/user/co-grab1/hpc-work/anyburl/train_prefixed.csv
+#PATH_TRAINING = /rds/user/co-grab1/hpc-work/anyburl/train_prefixed.csv
 
-PATH_OUTPUT   = /rds/user/co-grab1/hpc-work/anyburl/rules-base
+#PATH_OUTPUT   = /rds/user/co-grab1/hpc-work/anyburl/rules-base
 
-SNAPSHOTS_AT = 50, 100, 150, 200, 250, 300
+PATH_TRAINING = data/train_prefixed.csv
+
+PATH_OUTPUT   = data/rules-base
+
+SNAPSHOTS_AT = 50,100,200,300,400,500,600,700,800,900,1000
 
 THRESHOLD_CORRECT_PREDICTIONS = 5
 BATCH_TIME = 2000
 
-WORKER_THREADS = 76
+WORKER_THREADS = 16

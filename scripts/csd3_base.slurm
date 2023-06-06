@@ -52,3 +52,13 @@ do
             /rds/user/co-grab1/hpc-work/anyburl/base.out \
             True
 done
+
+python scripts/eval.py \
+            data/predictions-base-1000 \
+            data/train_prefixed.csv \
+            data/valid_prefixed.csv \
+            data/test_prefixed.csv \
+            data/heads_base.pkl \
+            data/tails_base.pkl \
+            data/base.out \
+            True
